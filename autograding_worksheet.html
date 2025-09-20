@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Grading Worksheet</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
+    <div class="bg-white rounded-2xl shadow-xl p-8 max-w-6xl w-full">
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-2">AI Grading Worksheet</h1>
+        <p class="text-center text-gray-500 mb-8">
+            Define a question and a model answer to automatically grade student responses.
+        </p>
+
+        <!-- Question 1 -->
+        <div id="question-block-1" class="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Question 1</h2>
+            <div class="mb-4">
+                <label for="question-1" class="block text-gray-600 font-medium mb-1">Question</label>
+                <textarea id="question-1" rows="2" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the question here..."></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-1">
+                    <label for="model-answer-1" class="block text-gray-600 font-medium">Model Answer Key</label>
+                    <button id="generate-model-1" class="text-sm text-blue-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                        Generate Model Answer ✨
+                    </button>
+                </div>
+                <textarea id="model-answer-1" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the detailed answer key here. The AI will use this to grade."></textarea>
+            </div>
+            <div>
+                <label for="student-answer-1" class="block text-gray-600 font-medium mb-1">Your Answer</label>
+                <textarea id="student-answer-1" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Type your answer here..."></textarea>
+            </div>
+            <button id="submit-button-1" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Grade Question 1
+            </button>
+            <div id="feedback-section-1" class="hidden mt-6 p-6 bg-white rounded-lg border border-gray-200">
+                <div id="loading-indicator-1" class="flex items-center justify-center space-x-2 text-gray-500">
+                    <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Grading your response...</span>
+                </div>
+                <div id="results-1" class="hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-lg font-bold text-gray-700">Score:</p>
+                        <div id="score-1" class="text-3xl font-extrabold text-blue-600">--</div>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="text-lg font-bold text-gray-700">Overall Feedback:</p>
+                        <button id="tts-button-1" class="text-sm text-gray-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                            Read Aloud 🔊
+                        </button>
+                    </div>
+                    <p id="feedback-1" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    <div class="mb-4">
+                        <p class="text-lg font-bold text-gray-700">Areas of Excellence:</p>
+                        <p id="excellence-1" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-gray-700">Areas for Improvement:</p>
+                        <p id="improvement-1" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 2 -->
+        <div id="question-block-2" class="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Question 2</h2>
+            <div class="mb-4">
+                <label for="question-2" class="block text-gray-600 font-medium mb-1">Question</label>
+                <textarea id="question-2" rows="2" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the question here..."></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-1">
+                    <label for="model-answer-2" class="block text-gray-600 font-medium">Model Answer Key</label>
+                    <button id="generate-model-2" class="text-sm text-blue-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                        Generate Model Answer ✨
+                    </button>
+                </div>
+                <textarea id="model-answer-2" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the detailed answer key here. The AI will use this to grade."></textarea>
+            </div>
+            <div>
+                <label for="student-answer-2" class="block text-gray-600 font-medium mb-1">Your Answer</label>
+                <textarea id="student-answer-2" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Type your answer here..."></textarea>
+            </div>
+            <button id="submit-button-2" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Grade Question 2
+            </button>
+            <div id="feedback-section-2" class="hidden mt-6 p-6 bg-white rounded-lg border border-gray-200">
+                <div id="loading-indicator-2" class="flex items-center justify-center space-x-2 text-gray-500">
+                    <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Grading your response...</span>
+                </div>
+                <div id="results-2" class="hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-lg font-bold text-gray-700">Score:</p>
+                        <div id="score-2" class="text-3xl font-extrabold text-blue-600">--</div>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="text-lg font-bold text-gray-700">Overall Feedback:</p>
+                        <button id="tts-button-2" class="text-sm text-gray-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                            Read Aloud 🔊
+                        </button>
+                    </div>
+                    <p id="feedback-2" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    <div class="mb-4">
+                        <p class="text-lg font-bold text-gray-700">Areas of Excellence:</p>
+                        <p id="excellence-2" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-gray-700">Areas for Improvement:</p>
+                        <p id="improvement-2" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 3 -->
+        <div id="question-block-3" class="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Question 3</h2>
+            <div class="mb-4">
+                <label for="question-3" class="block text-gray-600 font-medium mb-1">Question</label>
+                <textarea id="question-3" rows="2" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the question here..."></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-1">
+                    <label for="model-answer-3" class="block text-gray-600 font-medium">Model Answer Key</label>
+                    <button id="generate-model-3" class="text-sm text-blue-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                        Generate Model Answer ✨
+                    </button>
+                </div>
+                <textarea id="model-answer-3" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the detailed answer key here. The AI will use this to grade."></textarea>
+            </div>
+            <div>
+                <label for="student-answer-3" class="block text-gray-600 font-medium mb-1">Your Answer</label>
+                <textarea id="student-answer-3" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Type your answer here..."></textarea>
+            </div>
+            <button id="submit-button-3" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Grade Question 3
+            </button>
+            <div id="feedback-section-3" class="hidden mt-6 p-6 bg-white rounded-lg border border-gray-200">
+                <div id="loading-indicator-3" class="flex items-center justify-center space-x-2 text-gray-500">
+                    <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Grading your response...</span>
+                </div>
+                <div id="results-3" class="hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-lg font-bold text-gray-700">Score:</p>
+                        <div id="score-3" class="text-3xl font-extrabold text-blue-600">--</div>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="text-lg font-bold text-gray-700">Overall Feedback:</p>
+                        <button id="tts-button-3" class="text-sm text-gray-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                            Read Aloud 🔊
+                        </button>
+                    </div>
+                    <p id="feedback-3" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    <div class="mb-4">
+                        <p class="text-lg font-bold text-gray-700">Areas of Excellence:</p>
+                        <p id="excellence-3" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-gray-700">Areas for Improvement:</p>
+                        <p id="improvement-3" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 4 -->
+        <div id="question-block-4" class="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Question 4</h2>
+            <div class="mb-4">
+                <label for="question-4" class="block text-gray-600 font-medium mb-1">Question</label>
+                <textarea id="question-4" rows="2" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the question here..."></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-1">
+                    <label for="model-answer-4" class="block text-gray-600 font-medium">Model Answer Key</label>
+                    <button id="generate-model-4" class="text-sm text-blue-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                        Generate Model Answer ✨
+                    </button>
+                </div>
+                <textarea id="model-answer-4" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the detailed answer key here. The AI will use this to grade."></textarea>
+            </div>
+            <div>
+                <label for="student-answer-4" class="block text-gray-600 font-medium mb-1">Your Answer</label>
+                <textarea id="student-answer-4" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Type your answer here..."></textarea>
+            </div>
+            <button id="submit-button-4" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Grade Question 4
+            </button>
+            <div id="feedback-section-4" class="hidden mt-6 p-6 bg-white rounded-lg border border-gray-200">
+                <div id="loading-indicator-4" class="flex items-center justify-center space-x-2 text-gray-500">
+                    <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Grading your response...</span>
+                </div>
+                <div id="results-4" class="hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-lg font-bold text-gray-700">Score:</p>
+                        <div id="score-4" class="text-3xl font-extrabold text-blue-600">--</div>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="text-lg font-bold text-gray-700">Overall Feedback:</p>
+                        <button id="tts-button-4" class="text-sm text-gray-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                            Read Aloud 🔊
+                        </button>
+                    </div>
+                    <p id="feedback-4" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    <div class="mb-4">
+                        <p class="text-lg font-bold text-gray-700">Areas of Excellence:</p>
+                        <p id="excellence-4" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-gray-700">Areas for Improvement:</p>
+                        <p id="improvement-4" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Question 5 -->
+        <div id="question-block-5" class="mb-8 p-6 bg-gray-50 rounded-xl border border-gray-200">
+            <h2 class="text-xl font-semibold text-gray-700 mb-4">Question 5</h2>
+            <div class="mb-4">
+                <label for="question-5" class="block text-gray-600 font-medium mb-1">Question</label>
+                <textarea id="question-5" rows="2" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the question here..."></textarea>
+            </div>
+            <div class="mb-4">
+                <div class="flex items-center justify-between mb-1">
+                    <label for="model-answer-5" class="block text-gray-600 font-medium">Model Answer Key</label>
+                    <button id="generate-model-5" class="text-sm text-blue-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                        Generate Model Answer ✨
+                    </button>
+                </div>
+                <textarea id="model-answer-5" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Enter the detailed answer key here. The AI will use this to grade."></textarea>
+            </div>
+            <div>
+                <label for="student-answer-5" class="block text-gray-600 font-medium mb-1">Your Answer</label>
+                <textarea id="student-answer-5" rows="4" class="w-full p-3 border-2 border-gray-300 rounded-lg focus:outline-none focus:border-blue-500 transition-colors duration-200" placeholder="Type your answer here..."></textarea>
+            </div>
+            <button id="submit-button-5" class="mt-4 w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200 shadow-md focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50">
+                Grade Question 5
+            </button>
+            <div id="feedback-section-5" class="hidden mt-6 p-6 bg-white rounded-lg border border-gray-200">
+                <div id="loading-indicator-5" class="flex items-center justify-center space-x-2 text-gray-500">
+                    <svg class="animate-spin h-5 w-5 text-blue-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    <span>Grading your response...</span>
+                </div>
+                <div id="results-5" class="hidden">
+                    <div class="flex items-center justify-between mb-2">
+                        <p class="text-lg font-bold text-gray-700">Score:</p>
+                        <div id="score-5" class="text-3xl font-extrabold text-blue-600">--</div>
+                    </div>
+                    <div class="flex items-center justify-between mb-4">
+                        <p class="text-lg font-bold text-gray-700">Overall Feedback:</p>
+                        <button id="tts-button-5" class="text-sm text-gray-500 hover:text-blue-700 transition-colors duration-200 focus:outline-none">
+                            Read Aloud 🔊
+                        </button>
+                    </div>
+                    <p id="feedback-5" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    <div class="mb-4">
+                        <p class="text-lg font-bold text-gray-700">Areas of Excellence:</p>
+                        <p id="excellence-5" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                    <div>
+                        <p class="text-lg font-bold text-gray-700">Areas for Improvement:</p>
+                        <p id="improvement-5" class="text-gray-600 mt-2 leading-relaxed">--</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Helper function to convert base64 to ArrayBuffer
+        function base64ToArrayBuffer(base64) {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
+            return bytes.buffer;
+        }
+
+        // Helper function to convert PCM audio data to WAV format
+        function pcmToWav(pcm16, sampleRate) {
+            const buffer = new ArrayBuffer(44 + pcm16.byteLength);
+            const view = new DataView(buffer);
+
+            // WAV header
+            let offset = 0;
+            // "RIFF" chunk descriptor
+            writeString(view, offset, 'RIFF'); offset += 4;
+            view.setUint32(offset, 36 + pcm16.byteLength, true); offset += 4;
+            writeString(view, offset, 'WAVE'); offset += 4;
+            // "fmt " sub-chunk
+            writeString(view, offset, 'fmt '); offset += 4;
+            view.setUint32(offset, 16, true); offset += 4;
+            view.setUint16(offset, 1, true); offset += 2; // AudioFormat: PCM
+            view.setUint16(offset, 1, true); offset += 2; // NumChannels: 1
+            view.setUint32(offset, sampleRate, true); offset += 4; // SampleRate
+            view.setUint32(offset, sampleRate * 2, true); offset += 4; // ByteRate
+            view.setUint16(offset, 2, true); offset += 2; // BlockAlign
+            view.setUint16(offset, 16, true); offset += 2; // BitsPerSample
+            // "data" sub-chunk
+            writeString(view, offset, 'data'); offset += 4;
+            view.setUint32(offset, pcm16.byteLength, true); offset += 4;
+
+            // Write PCM data
+            const pcmView = new Int16Array(buffer, offset);
+            pcmView.set(pcm16);
+
+            return new Blob([buffer], { type: 'audio/wav' });
+
+            function writeString(view, offset, string) {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const playAudio = (audioData, mimeType) => {
+                if (!audioData || !mimeType || !mimeType.startsWith("audio/")) {
+                    console.error("Invalid audio data or mime type.");
+                    alert("Failed to play audio. Invalid data received.");
+                    return;
+                }
+
+                // Extract sample rate from mimeType
+                const sampleRateMatch = mimeType.match(/rate=(\d+)/);
+                if (!sampleRateMatch || !sampleRateMatch[1]) {
+                    console.error("Could not determine sample rate from MIME type.");
+                    alert("Failed to play audio. Sample rate not found.");
+                    return;
+                }
+                const sampleRate = parseInt(sampleRateMatch[1], 10);
+
+                const pcmData = base64ToArrayBuffer(audioData);
+                const pcm16 = new Int16Array(pcmData);
+                const wavBlob = pcmToWav(pcm16, sampleRate);
+                const audioUrl = URL.createObjectURL(wavBlob);
+                const audio = new Audio(audioUrl);
+                audio.play();
+            };
+
+            const gradeQuestion = async (questionNumber) => {
+                const questionInput = document.getElementById(`question-${questionNumber}`);
+                const modelAnswerInput = document.getElementById(`model-answer-${questionNumber}`);
+                const studentAnswerInput = document.getElementById(`student-answer-${questionNumber}`);
+                const feedbackSection = document.getElementById(`feedback-section-${questionNumber}`);
+                const loadingIndicator = document.getElementById(`loading-indicator-${questionNumber}`);
+                const resultsDiv = document.getElementById(`results-${questionNumber}`);
+                const scoreDiv = document.getElementById(`score-${questionNumber}`);
+                const feedbackDiv = document.getElementById(`feedback-${questionNumber}`);
+                const excellenceDiv = document.getElementById(`excellence-${questionNumber}`);
+                const improvementDiv = document.getElementById(`improvement-${questionNumber}`);
+                const submitButton = document.getElementById(`submit-button-${questionNumber}`);
+
+                const question = questionInput.value.trim();
+                const modelAnswer = modelAnswerInput.value.trim();
+                const studentAnswer = studentAnswerInput.value.trim();
+
+                if (!question || !modelAnswer || !studentAnswer) {
+                    alert('Please fill out all fields for this question before submitting.');
+                    return;
+                }
+
+                // Show loading indicator
+                feedbackSection.classList.remove('hidden');
+                loadingIndicator.classList.remove('hidden');
+                resultsDiv.classList.add('hidden');
+                submitButton.disabled = true;
+
+                // Construct the combined prompt for the AI
+                const fullPrompt = `You are a professional teacher and grader. Your task is to evaluate a student's long-form answer based on a provided model answer key. Provide a numerical score from 0 to 6, a clear, concise overall feedback message, and specific areas of excellence and improvement. The output must be a JSON object with the following structure: { 'score': number, 'feedback': string, 'excellence': string, 'improvement': string }. Do not include any other text or formatting outside of the JSON object.
+                Question: ${question}
+                Model Answer Key: ${modelAnswer}
+                Student's Answer: ${studentAnswer}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: fullPrompt }] }],
+                    generationConfig: {
+                        responseMimeType: "application/json",
+                        responseSchema: {
+                            type: "OBJECT",
+                            properties: {
+                                "score": { "type": "NUMBER" },
+                                "feedback": { "type": "STRING" },
+                                "excellence": { "type": "STRING" },
+                                "improvement": { "type": "STRING" }
+                            }
+                        }
+                    }
+                };
+                
+                const apiKey = ""; // API key will be provided by the runtime
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+                
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.status} ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const rawJson = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (!rawJson) {
+                        throw new Error('Invalid response structure from API');
+                    }
+                    
+                    const parsedData = JSON.parse(rawJson);
+
+                    // Update the UI with the results
+                    scoreDiv.textContent = `${parsedData.score}/6`;
+                    feedbackDiv.textContent = parsedData.feedback;
+                    excellenceDiv.textContent = parsedData.excellence;
+                    improvementDiv.textContent = parsedData.improvement;
+
+                } catch (error) {
+                    console.error('Error during API call:', error);
+                    // Update UI with the specific error message
+                    feedbackDiv.textContent = `An error occurred: ${error.message}. Please check the console for more details.`;
+                } finally {
+                    loadingIndicator.classList.add('hidden');
+                    resultsDiv.classList.remove('hidden');
+                    submitButton.disabled = false;
+                }
+            };
+            
+            const generateModelAnswer = async (questionNumber) => {
+                const questionInput = document.getElementById(`question-${questionNumber}`);
+                const modelAnswerInput = document.getElementById(`model-answer-${questionNumber}`);
+                const question = questionInput.value.trim();
+
+                if (!question) {
+                    alert('Please enter a question first.');
+                    return;
+                }
+
+                modelAnswerInput.placeholder = "Generating model answer...";
+                modelAnswerInput.disabled = true;
+
+                const prompt = `You are a professional subject matter expert. Your task is to provide a detailed and comprehensive model answer for the following question. Format the output as a single, well-structured paragraph. Do not include any introductory or concluding phrases like "Model Answer" or "Here is the answer."
+                Question: ${question}`;
+
+                const payload = {
+                    contents: [{ parts: [{ text: prompt }] }],
+                };
+                
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (!response.ok) {
+                        throw new Error(`API error: ${response.status} ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const generatedText = result?.candidates?.[0]?.content?.parts?.[0]?.text;
+                    
+                    if (!generatedText) {
+                        throw new Error('Invalid response structure from API');
+                    }
+                    
+                    modelAnswerInput.value = generatedText.trim();
+                } catch (error) {
+                    console.error('Error generating model answer:', error);
+                    alert(`Failed to generate model answer: ${error.message}.`);
+                } finally {
+                    modelAnswerInput.placeholder = "Enter the detailed answer key here. The AI will use this to grade.";
+                    modelAnswerInput.disabled = false;
+                }
+            };
+
+            const speakFeedback = async (questionNumber) => {
+                const feedbackDiv = document.getElementById(`feedback-${questionNumber}`);
+                const text = feedbackDiv.textContent.trim();
+                if (!text || text === '--') {
+                    alert("No feedback to read aloud. Please grade the answer first.");
+                    return;
+                }
+
+                const ttsButton = document.getElementById(`tts-button-${questionNumber}`);
+                const originalText = ttsButton.textContent;
+                ttsButton.textContent = "Loading... ⏳";
+                ttsButton.disabled = true;
+
+                const payload = {
+                    contents: [{ parts: [{ text: text }] }],
+                    generationConfig: {
+                        responseModalities: ["AUDIO"],
+                        speechConfig: {
+                            voiceConfig: {
+                                prebuiltVoiceConfig: { voiceName: "Puck" }
+                            }
+                        }
+                    },
+                    model: "gemini-2.5-flash-preview-tts"
+                };
+
+                const apiKey = "";
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`TTS API error: ${response.status} ${response.statusText}`);
+                    }
+
+                    const result = await response.json();
+                    const audioPart = result?.candidates?.[0]?.content?.parts?.[0];
+
+                    if (!audioPart || !audioPart.inlineData || !audioPart.inlineData.data) {
+                        throw new Error('Invalid audio data structure from TTS API');
+                    }
+
+                    playAudio(audioPart.inlineData.data, audioPart.inlineData.mimeType);
+
+                } catch (error) {
+                    console.error('Error with TTS:', error);
+                    alert(`Failed to play audio: ${error.message}.`);
+                } finally {
+                    ttsButton.textContent = originalText;
+                    ttsButton.disabled = false;
+                }
+            };
+
+            // Add event listeners for each of the five questions
+            for (let i = 1; i <= 5; i++) {
+                document.getElementById(`submit-button-${i}`).addEventListener('click', () => gradeQuestion(i));
+                document.getElementById(`generate-model-${i}`).addEventListener('click', () => generateModelAnswer(i));
+                document.getElementById(`tts-button-${i}`).addEventListener('click', () => speakFeedback(i));
+            }
+
+            // Simple custom modal for alerts
+            const customAlert = (message) => {
+                const modalHtml = `
+                    <div class="fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full flex items-center justify-center z-50">
+                        <div class="relative p-8 bg-white w-96 max-w-sm m-4 rounded-lg shadow-xl text-center">
+                            <p class="text-xl font-semibold mb-4 text-gray-800">Notice</p>
+                            <p class="text-gray-600 mb-6">${message}</p>
+                            <button onclick="this.parentElement.parentElement.remove()" class="bg-blue-600 text-white font-bold py-2 px-4 rounded-lg hover:bg-blue-700 transition-colors duration-200">OK</button>
+                        </div>
+                    </div>
+                `;
+                document.body.insertAdjacentHTML('beforeend', modalHtml);
+            };
+
+            // Overwrite the default alert to use the custom modal
+            window.alert = customAlert;
+        });
+    </script>
+</body>
+</html>
